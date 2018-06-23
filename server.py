@@ -17,7 +17,11 @@ def dashboard():
         }
         return render_template('dashboard.html', **templateData)
     else: 
+<<<<<<< HEAD
         return response_entity
+=======
+        return ''
+>>>>>>> 2466c2c4388a2385eed756c8484a30c6a93845cf
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, debug=True)
