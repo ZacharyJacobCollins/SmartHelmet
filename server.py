@@ -17,7 +17,7 @@ def dashboard():
         }
         return render_template('dashboard.html', **templateData)
     else: 
-        return response_entity
+        return jsonify(response_entity)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, debug=True)
