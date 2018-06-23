@@ -1,23 +1,36 @@
+import logging
+from logging.handlers import RotatingFileHandler
+
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-response_entity = '{"conversationToken":"","expectUserResponse":true,"expectedInputs":[{"inputPrompt":{"richInitialPrompt":{"items":[{"simpleResponse":{"textToSpeech":"Mathandprimenumbersitis!"}},{"basicCard":{"title":"Math&primenumbers","formattedText":"42isanevencompositenumber.It\niscomposedofthreedistinctprimenumbersmultipliedtogether.It\nhasatotalofeightdivisors.42isanabundantnumber,becausethe\nsumofitsproperdivisors54isgreaterthanitself.Tocountfrom\n1to42wouldtakeyouabouttwenty-one…","image":{"url":"https://example.google.com/42.png","accessibilityText":"Imagealternatetext"},"buttons":[{"title":"Readmore","openUrlAction":{"url":"https://example.google.com/mathandprimes"}}],"imageDisplayOptions":"CROPPED"}}],"suggestions":[]}},"possibleIntents":[{"intent":"actions.intent.TEXT"}]}]}'
+response_entity = '{"textToSpeech":"test","ssml":"","displayText":"test"}'
 
-@app.route('/static/<path:path>')
 def send_static(path):
         return send_from_directory('static', path)
 
 @app.route("/", methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'GET': 
+        app.logger.warning('A warning occurred (%d apples)', 42)
+        app.logger.error('An error occurred')
+        app.logger.info('Info')
         templateData = {
             'title' : 'HELLO!',
             'time': 'time o clock' 
         }
         return render_template('dashboard.html', **templateData)
     else: 
-        return jsonify(response_entity)
+        app.logger.info('test logged in successfully')
+        app.logger.warning('A warning occurred (%d apples)', 42)
+        app.logger.error('An error occurred')
+        app.logger.info('Info')
+        return 'message'
 
 if __name__ == "__main__":
+    handler = RotatingFileHandler('foo.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
     app.run(host='0.0.0.0', port=8000, debug=True)
+
