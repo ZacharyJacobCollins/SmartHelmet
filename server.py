@@ -1,16 +1,17 @@
-from flask import Flask, render_template
-import datetime
+from flask import Flask, render_template, request
+
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-   now = datetime.datetime.now()
-   timeString = now.strftime("%Y-%m-%d %H:%M")
-   templateData = {
-      'title' : 'HELLO!',
-      'time': timeString
-      }
-   return render_template('main.html', **templateData)
+@app.route("/", methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'GET': 
+        templateData = {
+            'title' : 'HELLO!',
+            'time': 'time o clock' 
+        }
+        return render_template('dashboard.html', **templateData)
+    else: 
+        return 'hi'
 
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
