@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+response_entity = { "conversationToken":"[]", "expectUserResponse":true, "expectedInputs":[ { "inputPrompt":{ "richInitialPrompt":{ "items":[ { "simpleResponse":{ "textToSpeech":"WelcometoPass" } } ] } }, "possibleIntents":[ { "intent":"assistant.intent.action.TEXT" } ] } ], "responseMetadata":{ "status":{ "message":"Success(200)" }, "queryMatchInfo":{ "queryMatched":true, "intent":"2379c8dd-f563-40ca-8da2-401cb2f2a2bb" } } }
+
 @app.route('/static/<path:path>')
 def send_static(path):
         return send_from_directory('static', path)
@@ -15,7 +17,7 @@ def dashboard():
         }
         return render_template('dashboard.html', **templateData)
     else: 
-        return 'hi'
+        return response_entity
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, debug=True)
