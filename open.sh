@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-chromium-browser
+chromium-browser 
