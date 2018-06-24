@@ -1,23 +1,11 @@
-A warning occurred (42 apples)
-An error occurred
-A warning occurred (42 apples)
-An error occurred
-A warning occurred (42 apples)
-An error occurred
-A warning occurred (42 apples)
-An error occurred
-test logged in successfully
-A warning occurred (42 apples)
-An error occurred
-Info
-A warning occurred (42 apples)
-An error occurred
-Info
-Responding to
-A warning occurred (42 apples)
-An error occurred
-Info
-Responding to
-A warning occurred (42 apples)
-An error occurred
-Info
+Handling dialogflow interaction
+Handling dialogflow interaction
+Handling dialogflow interaction
+{u'displayName': u'directions', u'name': u'projects/tsg-pass/agent/intents/ad7de796-208d-4111-b9df-5cedbd337dba'}
+Handling intent
+Handling intent
+Executing camera intent
+camera
+Handling intent
+Executing directions intent
+directions

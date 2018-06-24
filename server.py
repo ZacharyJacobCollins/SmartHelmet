@@ -12,6 +12,37 @@ response_entity = '{"textToSpeech":"test","ssml":"","displayText":"test"}'
 def send_static(path):
         return send_from_directory('static', path)
 
+def camera(request):
+    app.logger.info('Executing camera intent')
+    camera = PiCamera()
+    camera.start_preview()
+    return 'camera'
+
+def stop_camera():
+    camera = PiCamera()
+    camera.stop_preview()
+    return ''
+
+def directions(request):
+    app.logger.info('Executing directions intent')
+    return 'directions'
+
+def handle(request):
+    app.logger.info('Handling intent')
+    json = request.get_json()
+    intent = json["queryResult"]["intent"]["displayName"];
+    
+    #stop the camera preview
+    stop_camera()
+
+    if (intent == "directions"):
+        directions(request)
+    elif (intent == "camera"):
+        camera(request)
+
+    app.logger.info(intent)
+    return ''
+
 @app.route("/", methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'GET': 
@@ -22,15 +53,8 @@ def dashboard():
         }
         return render_template('dashboard.html', **templateData)
     else: 
-        app.logger.info('Responding to directions request')
-        return 'directions are'
-
-@app.route("/camera", methods=['POST'])
-def camera():
-    camera = PiCamera()
-    camera.start_preview()
-    #camera.stop_preview()
-    return 'camera'
+        handle(request)            
+        return 'intent handled'
 
 if __name__ == "__main__":
     handler = RotatingFileHandler('TSG.log', maxBytes=100000, backupCount=1)
