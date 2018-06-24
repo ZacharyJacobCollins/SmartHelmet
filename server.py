@@ -1,4 +1,5 @@
 import logging
+import webbrowser
 from logging.handlers import RotatingFileHandler
 from picamera import PiCamera
 from time import sleep
@@ -25,6 +26,9 @@ def stop_camera():
 
 def directions(request):
     app.logger.info('Executing directions intent')
+    url = "https://maps.google.com"
+    chrome_path = '/usr/bin/chromium-browser %s'
+    webbrowser.get(chrome_path).open(url)
     return 'directions'
 
 def handle(request):
@@ -62,5 +66,5 @@ if __name__ == "__main__":
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
     app.logger.setLevel(logging.DEBUG)
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
 
