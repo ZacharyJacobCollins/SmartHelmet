@@ -29,8 +29,9 @@ def dashboard():
         return 'message'
 
 if __name__ == "__main__":
-    handler = RotatingFileHandler('foo.log', maxBytes=10000, backupCount=1)
-    handler.setLevel(logging.INFO)
+    handler = RotatingFileHandler('TSG.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
+    app.logger.setLevel(logging.DEBUG)
     app.run(host='0.0.0.0', port=8000, debug=True)
 
