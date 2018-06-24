@@ -265,7 +265,7 @@ a, h1, h2, h3 {
           <div id="car">
             <img src="http://i1204.photobucket.com/albums/bb409/david_barukcic/engine_icon_zpsnvg1y3qj.png" />
             <h2>Motors</h2>
-            <h3>Good <span class="small">1246.2 miles</span></h3>
+            <h3>Requires bearing change <span class="small">1246.2 miles</span> </h3>
           </div>
 
           <div id="cardva">
@@ -314,7 +314,7 @@ a, h1, h2, h3 {
     });
   var mode = "home";
 
-  $('#main').click(function() {
+  window.setInterval(function() {
     if (mode == "home") {
       TweenMax.to($('#home'), 0.4, {
         y: -360
@@ -353,7 +353,7 @@ a, h1, h2, h3 {
       mode = "home";
      
     }
-  })
+  }, 4000)
 
   // ----- On render -----
   $(function() {
