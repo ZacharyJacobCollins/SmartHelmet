@@ -1,5 +1,4 @@
 import logging
-import webbrowser
 from logging.handlers import RotatingFileHandler
 from picamera import PiCamera
 from time import sleep
@@ -11,7 +10,7 @@ app = Flask(__name__)
 response_entity = '{"textToSpeech":"test","ssml":"","displayText":"test"}'
 
 def send_static(path):
-        return send_from_directory('static', path)
+    return send_from_directory('static', path)
 
 def camera(request):
     app.logger.info('Executing camera intent')
@@ -19,30 +18,26 @@ def camera(request):
     camera.start_preview()
     return 'camera'
 
-def stop_camera():
-    camera = PiCamera()
-    camera.stop_preview()
-    return ''
+def stop_camera(request):
+    app.logger.info('Executing stop camera intent')
+    return 'stop_camera'
 
 def directions(request):
     app.logger.info('Executing directions intent')
-    url = "https://maps.google.com"
-    chrome_path = '/usr/bin/chromium-browser %s'
-    webbrowser.get(chrome_path).open(url)
     return 'directions'
 
 def handle(request):
     app.logger.info('Handling intent')
+
     json = request.get_json()
     intent = json["queryResult"]["intent"]["displayName"];
-    
-    #stop the camera preview
-    stop_camera()
-
+ 
     if (intent == "directions"):
         directions(request)
     elif (intent == "camera"):
         camera(request)
+    elif (intent == "stop_camera"):
+        stop_camera(request)
 
     app.logger.info(intent)
     return ''
@@ -61,10 +56,9 @@ def dashboard():
         return 'intent handled'
 
 if __name__ == "__main__":
-    handler = RotatingFileHandler('TSG.log', maxBytes=100000, backupCount=1)
+    handler = RotatingFileHandler('logs/TSG.log', maxBytes=100000, backupCount=1)
     # Loger logs at info level and above
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
     app.logger.setLevel(logging.DEBUG)
     app.run(host='0.0.0.0', port=80, debug=True)
-
